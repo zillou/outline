@@ -1,6 +1,55 @@
-/* This file is for your main application css. */
-@import "./phoenix.css";
-@import "../node_modules/nprogress/nprogress.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+.bullet {
+  @apply block w-5 h-5 rounded-full text-gray-700;
+
+  &:hover {
+    @apply bg-gray-400;
+  }
+}
+
+a.add {
+  @apply block w-5 h-5 pt-1 text-gray-700;
+  opacity: 0.5;
+
+  .circle {
+    opacity: 0;
+  }
+  &:hover {
+    opacity: 0.7;
+
+    .circle {
+      opacity: 1;
+    }
+  }
+}
+
+.content {
+  @apply flex outline-none;
+}
+
+.tag {
+  @apply rounded outline-none cursor-pointer text-gray-700 px-px pr-0;
+
+  &:hover {
+    @apply bg-gray-200;
+  }
+}
+
+.tag-text {
+  @apply underline;
+}
+
+.list {
+  @apply flex flex-col pl-5 border-l border-dashed;
+  margin-left: 0.6rem;
+  border-color: rgb(236, 238, 240);
+}
+
+.root {
+  @apply border-l-0;
+}
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {
@@ -89,3 +138,5 @@
 .alert:empty {
   display: none;
 }
+
+@import "tailwindcss/utilities";

@@ -1,48 +1,82 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace-of-mind from prototype to production</p>
+<section class="max-w-4xl w-full mx-auto px-4 mt-10">
+  <div class="list root">
+    <div class="item">
+      <div class="title flex items-center pt-1">
+        <a href="#" class="bullet">
+          <svg viewBox="0 0 18 18" fill="currentColor">
+            <circle cx="9" cy="9" r="3.5"></circle>
+          </svg>
+        </a>
+        <div class="content flex" contenteditable>
+          <div class="title text-gray-900 bold">
+            Shopping list at Walmart
+          </div>
+          <span class="tag text-gray-700">
+            #
+            <span class="tag-text">errand</span>
+        </div>
+      </div>
 
-  <form phx-change="suggest" phx-submit="search">
-    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
-    <datalist id="results">
-      <%= for {app, _vsn} <- @results do %>
-        <option value="<%= app %>"><%= app %></option>
-      <% end %>
-    </datalist>
-    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
-  </form>
-</section>
+      <div class="list">
+        <div class="item">
+          <div class="title flex items-center pt-1">
+            <a href="#" class="bullet">
+              <svg viewBox="0 0 18 18" fill="currentColor">
+                <circle cx="9" cy="9" r="3.5"></circle>
+              </svg>
+            </a>
+            <div class="content flex" contenteditable>
+              <div class="title text-gray-900 bold">
+                Buy some milk
+              </div>
+              <span class="tag text-gray-700">
+                #
+                <span class="tag-text">errand</span>
+            </div>
+          </div>
+        </div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-    </ul>
-  </article>
+        <div class="item">
+          <div class="title flex items-center pt-1">
+            <a href="#" class="bullet">
+              <svg viewBox="0 0 18 18" fill="currentColor">
+                <circle cx="9" cy="9" r="3.5"></circle>
+              </svg>
+            </a>
+            <div class="content flex" contenteditable>
+              <div class="title text-gray-900 bold">
+                Buy some beer
+              </div>
+              <span class="tag text-gray-700">
+                #
+                <span class="tag-text">errand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="title flex items-center pt-1">
+        <a href="#" class="bullet">
+          <svg viewBox="0 0 18 18" fill="currentColor">
+            <circle cx="9" cy="9" r="3.5"></circle>
+          </svg>
+        </a>
+        <div class="content flex outline-none" contenteditable>
+          <div class="title text-gray-900 bold">
+            Read a book
+          </div>
+          <span class="tag text-gray-700" title="Filter #letote">#<span class="tag-text">reading</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="add">
+      <svg class="add" viewBox="0 0 20 20">
+        <circle cx="10.5" cy="10.5" r="9" fill="#dce0e2" class="circle"></circle>
+        <line x1="6" y1="10.5" x2="15" y2="10.5" stroke="#868c90" stroke-width="1"></line>
+        <line x1="10.5" y1="6" x2="10.5" y2="15" stroke="#868c90" stroke-width="1"></line>
+      </svg>
+    </a>
+  </div>
 </section>
