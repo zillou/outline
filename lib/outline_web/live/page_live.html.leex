@@ -1,76 +1,43 @@
 <section class="max-w-4xl w-full mx-auto px-4 mt-10">
   <div class="list root">
-    <div class="item">
-      <div class="title flex items-center pt-1">
-        <a href="#" class="bullet">
-          <svg viewBox="0 0 18 18" fill="currentColor">
-            <circle cx="9" cy="9" r="3.5"></circle>
-          </svg>
-        </a>
-        <div class="content flex" contenteditable>
-          <div class="title text-gray-900 bold">
-            Shopping list at Walmart
-          </div>
-          <span class="tag text-gray-700">
-            #
-            <span class="tag-text">errand</span>
-        </div>
-      </div>
-
-      <div class="list">
-        <div class="item">
-          <div class="title flex items-center pt-1">
-            <a href="#" class="bullet">
-              <svg viewBox="0 0 18 18" fill="currentColor">
-                <circle cx="9" cy="9" r="3.5"></circle>
-              </svg>
-            </a>
-            <div class="content flex" contenteditable>
-              <div class="title text-gray-900 bold">
-                Buy some milk
-              </div>
-              <span class="tag text-gray-700">
-                #
-                <span class="tag-text">errand</span>
+    <%= for item <- @list do %>
+      <div class="item">
+        <div class="title flex items-center pt-1">
+          <a href="#" class="bullet">
+            <svg viewBox="0 0 18 18" fill="currentColor">
+              <circle cx="9" cy="9" r="3.5"></circle>
+            </svg>
+          </a>
+          <div class="content flex" contenteditable>
+            <div class="title text-gray-900 bold">
+              <%= item.title %>
             </div>
+            <span class="tag text-gray-700">#<span class="tag-text">errand</span>
           </div>
         </div>
-
-        <div class="item">
-          <div class="title flex items-center pt-1">
-            <a href="#" class="bullet">
-              <svg viewBox="0 0 18 18" fill="currentColor">
-                <circle cx="9" cy="9" r="3.5"></circle>
-              </svg>
-            </a>
-            <div class="content flex" contenteditable>
-              <div class="title text-gray-900 bold">
-                Buy some beer
+        <%= if length(item.children) > 0 do %>
+          <div class="list">
+            <%= for child <- item.children do %>
+              <div class="item">
+                <div class="title flex items-center pt-1">
+                  <a href="#" class="bullet">
+                    <svg viewBox="0 0 18 18" fill="currentColor">
+                      <circle cx="9" cy="9" r="3.5"></circle>
+                    </svg>
+                  </a>
+                  <div class="content flex" contenteditable>
+                    <div class="title text-gray-900 bold">
+                      <%= child.title %>
+                    </div>
+                    <span class="tag text-gray-700">#<span class="tag-text">errand</span>
+                  </div>
+                </div>
               </div>
-              <span class="tag text-gray-700">
-                #
-                <span class="tag-text">errand</span>
-            </div>
+            <% end %>
           </div>
-        </div>
+        <% end %>
       </div>
-    </div>
-    <div class="item">
-      <div class="title flex items-center pt-1">
-        <a href="#" class="bullet">
-          <svg viewBox="0 0 18 18" fill="currentColor">
-            <circle cx="9" cy="9" r="3.5"></circle>
-          </svg>
-        </a>
-        <div class="content flex outline-none" contenteditable>
-          <div class="title text-gray-900 bold">
-            Read a book
-          </div>
-          <span class="tag text-gray-700" title="Filter #letote">#<span class="tag-text">reading</span>
-          </span>
-        </div>
-      </div>
-    </div>
+    <% end %>
     <a href="#" class="add">
       <svg class="add" viewBox="0 0 20 20">
         <circle cx="10.5" cy="10.5" r="9" fill="#dce0e2" class="circle"></circle>
