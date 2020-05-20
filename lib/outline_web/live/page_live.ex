@@ -3,23 +3,39 @@ defmodule OutlineWeb.PageLive do
 
   @sample_list [
     %{
+      id: 10,
       title: "Shopping list",
       children: [
         %{
+          id: 2,
           title: "Buy some milk",
           children: []
         },
         %{
+          id: 3,
           title: "Buy some beer",
-          children: []
+          children: [
+            %{
+              id: 31,
+              title: "Tsingdao beer",
+              children: [],
+            },
+            %{
+              id: 32,
+              title: "Blue Girl Beer",
+              children: []
+            }
+          ]
         }
       ]
     },
     %{
+      id: 4,
       title: "Read a book",
       children: []
     },
     %{
+      id: 5,
       title: "Make coffee",
       children: []
     }
