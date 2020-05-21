@@ -9,6 +9,7 @@ defmodule Outline.List.Item do
     field :title, :string
 
     belongs_to :user, Outline.Accounts.User
+    has_many :children, Outline.List.Item
 
     timestamps()
   end
