@@ -10,6 +10,8 @@ defmodule Outline.Accounts.User do
     field :uid, :string
     field :username, :string
 
+    has_many :items, Outline.List.Item
+
     timestamps()
   end
 
