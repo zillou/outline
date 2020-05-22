@@ -5,43 +5,84 @@ defmodule Outline.List.ItemTree do
   alias Outline.List.Item
   alias Outline.Accounts.User
 
+  @doc """
+  Loads given user's items and build up an N-ary tree.
+
+  When root id is nil, all users list items will be loaded;
+  when non-nil root id is specified, only the root node and its descendants will be loaded.
+
+  ## Examples
+
+      iex> Outline.List.ItemTree.build(user, nil)
+      [
+        %Outline.ListItem{
+          id: 1,
+          children: [
+            %Outline.ListItem{
+              id: 2
+              children: []
+              ...
+            }
+          ]
+          ...
+        }
+        %Outline.ListItem{
+          id: 3,
+          children: []
+          ...
+        }
+      ]
+      iex> Outline.List.ItemTree.build(user, 1)
+      [
+        %Outline.ListItem{
+          id: 1,
+          children: [
+            %Outline.ListItem{
+              id: 2
+              children: []
+              ...
+            }
+          ]
+          ...
+        }
+      ]
+      iex> Outline.List.ItemTree.build(user, 5)
+      []
+  """
   def build(%User{} = user, root_id \\ nil) do
     item_tree_query(user, root_id)
     |> Repo.all()
     |> build_tree_from_adjacency_list(root_id)
   end
 
-  defp build_tree_from_adjacency_list(list, root_id) do
-    parent_map =
-      Enum.reduce(list, %{}, fn %{parent_id: parent_id} = node, map ->
-        update_in(map, [parent_id], fn
-          nil -> [node]
-          children -> [node | children]
-        end)
-      end)
-
-    fill_children(parent_map[root_id], parent_map)
+  def build_tree_from_adjacency_list(list, root_id) do
+    parent_node_map = Enum.group_by(list, & &1.parent_id)
+    root_nodes = Map.get(parent_node_map, root_id, [])
+    lookup_children_for_nodes(root_nodes, parent_node_map)
   end
 
-  defp fill_children(roots, parent_map) do
-    Enum.map(roots, fn node -> %{node | children: find_child(node, parent_map)} end)
+  defp lookup_children_for_nodes(roots, parent_map) do
+    Enum.map(roots, fn node ->
+      %{node | children: lookup_children(node, parent_map)}
+    end)
   end
 
-  defp find_child(node, parent_map) do
+  defp lookup_children(node, parent_map) do
     case Map.get(parent_map, node.id) do
       nil -> []
-      children -> fill_children(children, parent_map)
+      children -> lookup_children_for_nodes(children, parent_map)
     end
   end
 
   def item_tree_query(user, root_id) do
     item_tree_recursion_query =
-      from(item in user_items(user), join: it in "item_tree", on: it.id == item.parent_id)
+      from(item in user_items(user),
+        join: it in "item_tree", on: it.id == item.parent_id)
 
-    sub = union_all(root_items_query(user, root_id), ^item_tree_recursion_query)
+    cte = union_all(root_items_query(user, root_id), ^item_tree_recursion_query)
 
     {"item_tree", Item}
-    |> with_cte("item_tree", as: ^sub)
+    |> with_cte("item_tree", as: ^cte)
     |> recursive_ctes(true)
     |> order_by(asc_nulls_first: :parent_id)
   end
