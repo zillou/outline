@@ -15,11 +15,6 @@
         <div class="flex items-center flex-shrink-0">
           <!-- <h1 class="font-sans font-bold text-2xl text-black">Outline</h1> -->
         </div>
-        <%= if @current_user do %>
-          <div class="inline-block">
-            <%= live_redirect "Login with Github", to: Routes.auth_path(@conn, :request, "github") %>
-          </div>
-        <% end %>
       </nav>
     </header>
     <main role="main" class="pb-8 flex-1">
