@@ -1,4 +1,4 @@
-defmodule Outline.List.OrderTest do
+defmodule Outline.List.ItemPositionTest do
   use ExUnit.Case
 
   import Outline.List.Order

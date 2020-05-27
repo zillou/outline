@@ -1,4 +1,4 @@
-defmodule Outline.List.Order do
+defmodule Outline.List.ItemPosition do
   def pos(prev, next)
   def pos(nil, next), do: pos(0, next)
   def pos(prev, nil), do: prev + 65536
