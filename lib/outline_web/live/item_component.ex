@@ -29,21 +29,8 @@ defmodule OutlineWeb.ItemComponent do
     """
   end
 
-  # @impl true
-  # def update(%{item: item} = assigns, socket) do
-  #   changeset = Accounts.change_user(user)
-  #
-  #   {:ok,
-  #    socket
-  #    |> assign(assigns)
-  #    |> assign(:changeset, changeset)}
-  # end
-
   def handle_event("input", %{"item" => item_attrs} = params, socket) do
-    IO.inspect(params)
-    IO.inspect(socket.assigns.item)
-    # {:ok, item} = Outline.List.update_item(socket.assigns.item, item_attrs)
-    # {:noreply, assign(socket, :item, item)}
-    {:noreply, socket}
+    {:ok, item} = Outline.List.update_item(socket.assigns.item, item_attrs)
+    {:noreply, assign(socket, :item, item)}
   end
 end

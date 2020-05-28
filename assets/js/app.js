@@ -17,15 +17,32 @@ import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
 
+function debounce(fn, wait) {
+  let callback = fn
+  let timerId = null
+
+  function debounced() {
+    let context = this
+    let args = arguments
+
+    clearTimeout(timerId)
+    timerId = setTimeout(function() {
+      callback.apply(context, args)
+    }, wait)
+  }
+
+  return debounced
+}
+
 let Hooks = {}
 Hooks.ContentEditable = {
   mounted() {
     let form = this.el.closest("form")
     let targetInput = form.querySelector(`[name="${this.el.dataset.name}"]`)
-    this.el.addEventListener("input", e => {
+    this.el.addEventListener("input", debounce(e => {
       targetInput.value = this.el.innerText
       targetInput.dispatchEvent(new Event("input", {bubbles: true}))
-    })
+    }, 2000))
   }
 }
 

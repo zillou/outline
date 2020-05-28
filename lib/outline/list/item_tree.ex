@@ -50,7 +50,10 @@ defmodule Outline.List.ItemTree do
       []
   """
   def build(%User{} = user, root_id \\ nil) do
-    item_tree_query(user, root_id)
+    # select over the subquery is to make sure the source the loaded records are
+    # `items` instead of `item_tree`
+    (from i in Item, where: i.id in subquery(item_tree_query(user, root_id)))
+    |> order_by(asc_nulls_first: :parent_id)
     |> Repo.all()
     |> build_tree_from_adjacency_list(root_id)
   end
@@ -84,7 +87,7 @@ defmodule Outline.List.ItemTree do
     {"item_tree", Item}
     |> with_cte("item_tree", as: ^cte)
     |> recursive_ctes(true)
-    |> order_by(asc_nulls_first: :parent_id)
+    |> select([i], i.id)
   end
 
   defp root_items_query(user, nil) do
